@@ -8,10 +8,24 @@ from app.services.job_service import (
     analyze_job_description,
     match_resume_with_job
 )
+
 from app.services.interview_service import generate_interview_questions
+
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI(title="AI Resume & Interview Assistant")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
