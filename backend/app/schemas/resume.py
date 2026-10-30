@@ -1,34 +1,41 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict
 
 
 class Education(BaseModel):
-    degree: str | None = None
-    institution: str | None = None
-    graduation_year: str | None = None
+    model_config = ConfigDict(extra="forbid")
+
+    degree: str | None
+    institution: str | None
+    graduation_year: str | None
 
 
 class Project(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     name: str
     description: str
-    technologies: list[str] = Field(default_factory=list)
+    technologies: list[str]
 
 
 class Experience(BaseModel):
-    role:str | None = None
-    company: str | None = None
-    duration: str | None = None
-    responsibilities: list[str] = Field(default_factory=list)
+    model_config = ConfigDict(extra="forbid")
+
+    role: str
+    company: str | None
+    duration: str | None
+    responsibilities: list[str]
 
 
 class ResumeExtraction(BaseModel):
-    candidate_name: str | None = None
-    email: str | None = None
-    phone: str | None = None
+    model_config = ConfigDict(extra="forbid")
 
-    skills: list[str] = Field(default_factory=list)
+    candidate_name: str | None
+    email: str | None
+    phone: str | None
 
-    education: list[Education] = Field(default_factory=list)
-    projects: list[Project] = Field(default_factory=list)
-    experience: list[Experience] = Field(default_factory=list)
+    skills: list[str]
+    education: list[Education]
+    projects: list[Project]
+    experience: list[Experience]
 
-    missing_information: list[str] = Field(default_factory=list)
+    missing_information: list[str]
